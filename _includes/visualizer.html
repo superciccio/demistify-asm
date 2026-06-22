@@ -1,0 +1,49 @@
+{%- comment -%}
+  Markup shell for the step-through visualizer. The trace data is injected as
+  JSON by the lesson layout (#trace-data) and rendered by visualizer.js.
+  Without JS, the code listing below still shows as a plain highlighted block.
+{%- endcomment -%}
+<section class="viz" aria-label="Step-through execution">
+  <div class="viz-frame">
+    <div class="viz-titlebar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="viz-title">execution trace</span>
+    </div>
+
+    <div class="viz-body">
+      <div class="viz-code">
+        <ol class="viz-lines" aria-label="Program">
+          {%- for line in page.trace.code -%}
+          <li data-line="{{ forloop.index0 }}"><code>{{ line }}</code></li>
+          {%- endfor -%}
+        </ol>
+      </div>
+
+      <div class="viz-panels">
+        <div class="viz-panel viz-regs">
+          <h3>registers</h3>
+          <dl class="kv" data-panel="regs"></dl>
+        </div>
+        <div class="viz-panel viz-mem">
+          <h3>memory / stack</h3>
+          <dl class="kv" data-panel="mem"></dl>
+        </div>
+        <div class="viz-panel viz-flags">
+          <h3>pc &amp; flags</h3>
+          <dl class="kv" data-panel="flags"></dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="viz-note" data-viz="note" aria-live="polite"></div>
+
+    <div class="viz-controls" role="group" aria-label="Playback controls">
+      <button data-viz="first" type="button" title="Restart (Home)">⏮</button>
+      <button data-viz="prev" type="button" title="Step back (←)">◀ step</button>
+      <button data-viz="play" type="button" title="Auto-play (Space)" aria-pressed="false">▶ play</button>
+      <button data-viz="next" type="button" title="Step forward (→)">step ▶</button>
+      <input data-viz="scrub" type="range" min="0" value="0" aria-label="Scrub to step">
+      <span class="viz-counter" data-viz="counter">0 / 0</span>
+    </div>
+  </div>
+</section>

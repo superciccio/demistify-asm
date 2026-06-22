@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<section class="hero">
+  <h1 class="hero-title">Demystifying Assembly</h1>
+  <p class="hero-tagline">Mind the <span class="asm">ch·asm</span> between you and the machine.</p>
+  <p class="hero-lede">
+    Assembly isn't magic — it's the thin, honest layer between your ideas and the
+    silicon. Pick a track and go from first principles to fluency.
+  </p>
+</section>
+
+{%- for t in site.data.tracks.list -%}
+  {%- assign items = site[t.id] | sort: "order" -%}
+  <section class="track" id="{{ t.id }}">
+    <header class="track-head">
+      <h2><span class="ico" aria-hidden="true">{{ t.icon }}</span> {{ t.title }}</h2>
+      <p class="muted">{{ t.blurb }}</p>
+    </header>
+
+    {%- if items.size == 0 -%}
+      <p class="muted empty">No lessons here yet — drop a markdown file in <code>_{{ t.id }}/</code>.</p>
+    {%- else -%}
+      {%- for level in site.data.tracks.difficulty_order -%}
+        {%- assign group = items | where: "difficulty", level -%}
+        {%- if group.size > 0 -%}
+        <h3 class="level-head badge-{{ level }}">{{ level }}</h3>
+        <ol class="card-list">
+          {%- for item in group -%}
+          <li class="card" data-progress-id="{{ item.track }}/{{ item.order }}">
+            <a href="{{ item.url | relative_url }}">
+              <span class="check" aria-hidden="true">✓</span>
+              <span class="card-num">{{ item.order | prepend: '0' | slice: -2, 2 }}</span>
+              <span class="card-title">{{ item.title }}</span>
+              {%- if item.trace %}<span class="card-tag">interactive</span>{%- endif -%}
+            </a>
+          </li>
+          {%- endfor -%}
+        </ol>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </section>
+{%- endfor -%}

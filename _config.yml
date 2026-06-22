@@ -1,0 +1,47 @@
+title: "Demystifying Assembly"
+tagline: "Mind the ch·asm between you and the machine."
+description: >-
+  An interactive, beginner-to-advanced guide to assembly language —
+  the history of how it evolved, and hands-on RISC-V you can step through
+  instruction by instruction.
+lang: en
+
+# Set this to your GitHub Pages URL when you know it.
+# For a project page:  url: "https://<user>.github.io"  baseurl: "/demistify-asm"
+url: ""
+baseurl: ""
+
+# --- Collections: each learning track is a collection ---
+collections:
+  history:
+    output: true
+    permalink: /history/:name/
+  code:
+    output: true
+    permalink: /code/:name/
+
+defaults:
+  - scope: { path: "", type: "history" }
+    values: { layout: "lesson", track: "history" }
+  - scope: { path: "", type: "code" }
+    values: { layout: "lesson", track: "code" }
+
+# --- Markdown / syntax highlighting ---
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  input: GFM
+
+# --- Privacy: keep internal docs out of the build ---
+# (the leading underscore on _internal/ already makes Jekyll skip it; this is belt + suspenders)
+exclude:
+  - _internal/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+  - .gitignore
+
+plugins:
+  - jekyll-seo-tag

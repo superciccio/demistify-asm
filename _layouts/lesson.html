@@ -1,0 +1,72 @@
+---
+layout: default
+---
+{%- comment -%}
+  Build the ordered lesson list for this lesson's track, then derive prev/next
+  and "N of M" purely from front-matter `order`. No hand-maintained nav.
+{%- endcomment -%}
+{%- assign track_items = site[page.track] | sort: "order" -%}
+{%- assign total = track_items | size -%}
+{%- assign idx = 0 -%}
+{%- for item in track_items -%}
+  {%- if item.url == page.url -%}{%- assign idx = forloop.index -%}{%- endif -%}
+{%- endfor -%}
+{%- assign prev = null -%}{%- assign next = null -%}
+{%- assign prev_i = idx | minus: 2 -%}
+{%- if idx > 1 -%}{%- assign prev = track_items[prev_i] -%}{%- endif -%}
+{%- if idx < total -%}{%- assign next = track_items[idx] -%}{%- endif -%}
+{%- assign track_meta = site.data.tracks.list | where: "id", page.track | first -%}
+
+<div class="lesson-grid" data-lesson-id="{{ page.track }}/{{ page.order }}">
+  <aside class="toc" aria-label="{{ track_meta.title }} lessons">
+    <button class="toc-toggle ghost" type="button" aria-expanded="false" aria-controls="toc-list">
+      <span class="ico">{{ track_meta.icon }}</span> {{ track_meta.title }}
+    </button>
+    <ol id="toc-list" class="toc-list">
+      {%- for item in track_items -%}
+      <li class="{% if item.url == page.url %}is-current{% endif %}" data-progress-id="{{ item.track }}/{{ item.order }}">
+        <a href="{{ item.url | relative_url }}">
+          <span class="check" aria-hidden="true">✓</span>
+          <span class="num">{{ item.order }}.</span> {{ item.title }}
+        </a>
+      </li>
+      {%- endfor -%}
+    </ol>
+  </aside>
+
+  <article class="lesson">
+    <header class="lesson-head">
+      <p class="crumbs"><a href="{{ '/' | relative_url }}#{{ page.track }}">{{ track_meta.title }}</a></p>
+      <h1>{{ page.title }}</h1>
+      <p class="badges">
+        <span class="badge badge-{{ page.difficulty }}">{{ page.difficulty }}</span>
+        {%- if page.arch %}<span class="badge badge-arch">{{ page.arch | upcase }}</span>{%- endif -%}
+        <span class="badge badge-pos">Lesson {{ idx }} of {{ total }}</span>
+      </p>
+      <div class="progress"><div class="progress-bar" style="width: {% if total > 0 %}{{ idx | times: 100 | divided_by: total }}{% else %}0{% endif %}%"></div></div>
+    </header>
+
+    {%- if page.trace -%}
+      {% include visualizer.html %}
+    {%- endif -%}
+
+    <div class="prose">
+      {{ content }}
+    </div>
+
+    <nav class="lesson-nav" aria-label="Lesson navigation">
+      {%- if prev -%}
+        <a class="lnav prev" href="{{ prev.url | relative_url }}">❮ {{ prev.title }}</a>
+      {%- else -%}<span></span>{%- endif -%}
+      {%- if next -%}
+        <a class="lnav next" href="{{ next.url | relative_url }}">{{ next.title }} ❯</a>
+      {%- else -%}<span></span>{%- endif -%}
+    </nav>
+  </article>
+</div>
+
+<script src="{{ '/assets/js/progress.js' | relative_url }}" defer></script>
+{%- if page.trace -%}
+<script id="trace-data" type="application/json">{{ page.trace | jsonify }}</script>
+<script src="{{ '/assets/js/visualizer.js' | relative_url }}" defer></script>
+{%- endif -%}

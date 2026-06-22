@@ -1,0 +1,21 @@
+# Single source of truth for the learning tracks and how they're presented.
+# Add a lesson by dropping a markdown file in _<id>/ with front matter
+# `track`, `order`, `difficulty`. Add a track by appending to `list` below
+# (and declaring the matching collection in _config.yml).
+
+# Difficulty rendering order + grouping used on the landing page.
+difficulty_order:
+  - beginner
+  - intermediate
+  - advanced
+
+list:
+  - id: history
+    title: "History of Assembly"
+    blurb: "From toggled switches and punch cards to the ISAs that run the world."
+    icon: "▤"
+
+  - id: code
+    title: "Hands-On RISC-V"
+    blurb: "Write real assembly and watch it execute, one instruction at a time."
+    icon: "❯"
