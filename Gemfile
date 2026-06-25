@@ -8,6 +8,7 @@ gem "jekyll", "~> 4.3"
 
 # Plugins
 gem "jekyll-seo-tag", "~> 2.8"
+gem "jekyll-sitemap", "~> 1.4"
 
 # Local preview server (Ruby 3.x no longer bundles webrick)
 gem "webrick", "~> 1.8"
