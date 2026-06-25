@@ -11,6 +11,10 @@ lang: en
 url: ""
 baseurl: ""
 
+# Google Analytics 4 Measurement ID (e.g. G-XXXXXXXXXX).
+# Leave blank to disable. Only loads in production builds.
+google_analytics: "G-Z15GW8CSDX"
+
 # --- Collections: each learning track is a collection ---
 collections:
   history:
