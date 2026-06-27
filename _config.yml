@@ -6,11 +6,10 @@ description: >-
   instruction by instruction.
 lang: en
 
-# GitHub Pages project-page URL. The Actions build overrides baseurl via
-# configure-pages; url is needed here so SEO tags and the sitemap get an
-# absolute address.
-url: "https://superciccio.github.io"
-baseurl: "/demistify-asm"
+# Custom domain served at the apex, so the site lives at the root (no baseurl).
+# url is needed here so SEO tags and the sitemap get an absolute address.
+url: "https://demistify-asm.com"
+baseurl: ""
 
 # Google Analytics 4 Measurement ID (e.g. G-XXXXXXXXXX).
 # Leave blank to disable. Only loads in production builds.
