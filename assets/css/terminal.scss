@@ -102,7 +102,7 @@ code, pre, .mono { font-family: var(--mono); }
 
 .card-list { list-style: none; margin: 0; padding: 0; display: grid; gap: .8rem;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); }
-.card a { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem;
+.card a { display: flex; align-items: center; gap: .7rem; padding: .9rem 1rem; height: 100%;
   background: var(--bg-panel); border: 1px solid var(--line); border-radius: var(--radius); color: var(--fg); }
 .card a:hover { border-color: var(--accent); text-decoration: none; box-shadow: var(--glow); transform: translateY(-1px); }
 .card { transition: none; }
